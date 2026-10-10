@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Moyenne - Excellence</title>
+    <!-- Police d'écriture élégante -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icônes FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <button id="reset-app-btn" class="btn-danger-outline" title="Effacer toutes les données et recommencer">
+                <i class="fa-solid fa-rotate-right"></i> Réinitialiser
+            </button>
+            
+            <h1><i class="fa-solid fa-graduation-cap"></i> Calculateur de Moyenne</h1>
+            <p>Gérez vos notes tout au long de l'année avec sauvegarde automatique</p>
+            
+            <div class="semester-selector" style="text-align: center; margin-top: 15px; margin-bottom: 15px;">
+                <label for="semester-select" style="font-weight: 600; margin-right: 10px; color: var(--text-color);">Période :</label>
+                <select id="semester-select" style="padding: 8px 15px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); font-family: 'Poppins', sans-serif; font-size: 1rem; cursor: pointer; outline: none;">
+                    <option value="S1">Semestre 1</option>
+                    <option value="S2">Semestre 2</option>
+                </select>
+            </div>
+
+            <div class="tabs" style="margin-top: 10px;">
+                <button class="tab-btn active" id="tab-config">1. Mes Matières</button>
+                <button class="tab-btn" id="tab-grades">2. Mes Notes & Bulletin</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- VUE 1 : Configuration des Matières -->
+            <section id="view-config" class="view-section">
+                <div class="config-grid">
+                    <div class="add-subject-card">
+                        <h2><i class="fa-solid fa-book"></i> Ajouter une matière</h2>
+                        <form id="subject-config-form">
+                            <div class="form-group">
+                                <label for="subject-name">Nom de la matière</label>
+                                <input type="text" id="subject-name" placeholder="Ex: Mathématiques, SVT..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject-coeff">Coefficient</label>
+                                <input type="number" id="subject-coeff" placeholder="Ex: 3" min="1" step="0.5" required>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fa-solid fa-plus"></i> Ajouter cette matière
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="subjects-list-card">
+                        <h2><i class="fa-solid fa-list-check"></i> Mes matières enregistrées</h2>
+                        <ul id="configured-subjects-list" class="subject-list">
+                            <!-- Rempli par JavaScript -->
+                        </ul>
+                        <div id="no-subjects-msg" class="empty-state">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>Aucune matière pour le moment. Ajoutez-les dans le formulaire ci-contre.</p>
+                        </div>
+                        <button id="go-to-grades-btn" class="btn-secondary hidden" style="margin-top: 15px; width: 100%;">
+                            Passer à l'ajout des notes <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VUE 2 : Saisie des Notes -->
+            <section id="view-grades" class="view-section hidden">
+                <div class="grades-header">
+                    <h2><i class="fa-solid fa-pen-to-square"></i> Évaluation Continue</h2>
+                    <p class="formula-info">Gérez librement les devoirs et examens pour chaque matière. La moyenne s'adapte automatiquement (Ex: Moy. Devoirs, ou (Moy. Devoirs + Examen) ÷ 2).</p>
+                </div>
+
+                <div id="grades-cards-container" class="grades-grid">
+                    <!-- Les cartes de chaque matière seront générées ici par JavaScript -->
+                </div>
+
+                <!-- Résultat final (Moyenne générale) -->
+                <div class="summary-card hidden" id="summary-card">
+                    <div class="summary-details">
+                        <p>Total des Coefficients validés : <span id="total-coeffs">0</span></p>
+                        <p>Total des Points accumulés : <span id="total-points">0.00</span></p>
+                    </div>
+                    <div class="final-average">
+                        <h3>Moyenne Générale</h3>
+                        <div class="average-score">
+                            <span id="final-average">0.00</span> <span class="out-of">/ 20</span>
+                        </div>
+                        <p id="appreciation" class="appreciation"></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
